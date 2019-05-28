@@ -41,7 +41,20 @@ class App extends React.Component {
       .catch(error => this.setState({error}))
   }
 
+  filterBooks = (printType, bookType) => {
+    const filteredBooks = this.state.books.filter(book => {
+      if (printType === 'epub') {
+        return book.accessInfo.epub.isAvailable
+      }
+    })
+    
 
+
+
+
+
+    this.setState({filteredBooks})
+  }
 
   render() {
     return (
@@ -49,7 +62,7 @@ class App extends React.Component {
         <Header />
         <main>
           <SearchForm fetchBooks={this.fetchBooks} />
-          <FilterMenu />
+          <FilterMenu books={this.state.books} />
           <BookList books={this.state.books} />
         </main>
       </div>
