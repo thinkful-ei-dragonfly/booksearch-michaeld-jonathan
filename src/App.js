@@ -50,7 +50,7 @@ class App extends React.Component {
         <main>
           <SearchForm fetchBooks={this.fetchBooks} />
           <FilterMenu />
-          <BookList />
+          <BookList books={this.state.books} />
         </main>
       </div>
     );

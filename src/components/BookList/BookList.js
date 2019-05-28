@@ -1,10 +1,10 @@
 import React from 'react'
 import Book from './Book/Book'
 
-function BookList (){
+function BookList (props){
   return (
     <ul>
-      <Book />
+      <Book books={props.books} />
     </ul>
   )
 }

@@ -1,17 +1,18 @@
 import React from 'react'
 
-function Book (){
+function Book (props){
+  let book = props.books.map(item =>{
+    return(<li>
+      <h2>{item.volumeInfo.title}</h2>
+      <p>Author(s): {item.volumeInfo.authors}</p>
+      <p>Price: {item.saleInfo.listPrice}</p>
+    </li>
+)
+  })
+  
   return(
     <div>
-    <li>
-      This is a book
-    </li>
-    <li>
-      This is another book
-    </li>
-    <li>
-      ...And another
-    </li>
+      {book}
     </div>
   )
 }
