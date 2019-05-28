@@ -12,8 +12,8 @@ class App extends Component {
         <Header />
         <main>
           <SearchForm />
-          {/* <FilterMenu />
-          <BookList /> */}
+          <FilterMenu />
+          <BookList />
         </main>
       </div>
     );
