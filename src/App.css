@@ -35,3 +35,7 @@
 .filter-menu{
   display: inline;
 }
+
+ul{
+  list-style-type: none;
+}

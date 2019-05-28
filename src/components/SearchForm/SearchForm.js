@@ -1,11 +1,15 @@
 import React from "react";
 
 class SearchForm extends React.Component {
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.fetchBooks(e.target.searchTerm.value);
+  }
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <p>
-          Search: <input type="text" />
+          Search: <input type="text" id="searchTerm" />
           <button type="submit">Submit</button>
         </p>
       </form>

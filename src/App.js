@@ -1,4 +1,3 @@
-// 116268196204715506066
 import React from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
@@ -12,11 +11,34 @@ class App extends React.Component {
 
   state = {
     books: [],
+    error: null
     
   }
 
   fetchBooks = searchTerm  => {
-    // fetch(URL)
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${this.APIkey}`)
+      .then(
+        res => { 
+          console.log(res)
+          return res.ok ? res.json() : Promise.reject('Something went wrong')
+        }
+      )
+      
+      .then(
+        res => {
+        console.log(res)
+        return res.items
+      }
+      )
+      .then(
+        books => {
+        console.log(books)
+        this.setState({books})
+        console.log(this.state)
+      }
+      )
+      
+      .catch(error => this.setState({error}))
   }
 
 
@@ -26,7 +48,7 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <main>
-          <SearchForm />
+          <SearchForm fetchBooks={this.fetchBooks} />
           <FilterMenu />
           <BookList />
         </main>
