@@ -11,8 +11,8 @@ class App extends React.Component {
 
   state = {
     books: [],
-    error: null
-    
+    error: null,
+    displayBooks: []
   }
 
   fetchBooks = searchTerm  => {
@@ -33,7 +33,7 @@ class App extends React.Component {
       .then(
         books => {
         console.log(books)
-        this.setState({books})
+        this.setState({books,displayBooks:books})
         console.log(this.state)
       }
       )
@@ -41,19 +41,34 @@ class App extends React.Component {
       .catch(error => this.setState({error}))
   }
 
-  filterBooks = (printType, bookType) => {
+  byPrintType = printType => {
+    console.log(printType)
     const filteredBooks = this.state.books.filter(book => {
       if (printType === 'epub') {
         return book.accessInfo.epub.isAvailable
+      } else if (printType === 'PDF') {
+        return book.accessInfo.pdf.isAvailable
+      } else {
+        return book
       }
     })
-    
+    this.setState({ displayBooks:filteredBooks })
+    console.log(filteredBooks)
+  }
 
-
-
-
-
-    this.setState({filteredBooks})
+  bySaleType = saleType => {
+    console.log(saleType)
+    const filteredBooks = this.state.books.filter(book => {
+      if (saleType === 'not-for-sale') {
+        return (book.saleInfo.saleability === "NOT_FOR_SALE") 
+      } else if (saleType === 'for-sale') {
+        return (book.saleInfo.saleability === "FOR_SALE")
+      } else {
+        return book 
+      }
+    })
+    this.setState({ diplaybooks:filteredBooks })
+    console.log(filteredBooks)
   }
 
   render() {
@@ -62,8 +77,8 @@ class App extends React.Component {
         <Header />
         <main>
           <SearchForm fetchBooks={this.fetchBooks} />
-          <FilterMenu books={this.state.books} />
-          <BookList books={this.state.books} />
+          <FilterMenu byPrintType={this.byPrintType} bySaleType={this.bySaleType} />
+          <BookList books={this.state.displayBooks} />
         </main>
       </div>
     );
